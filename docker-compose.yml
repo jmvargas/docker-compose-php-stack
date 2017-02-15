@@ -1,0 +1,39 @@
+version: '2'
+services:
+  # PHP
+  phpfpm:
+    restart: always
+    build: php-fpm
+    volumes:
+      - ./php-fpm/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ./php-fpm/php.ini:/usr/local/etc/php/php.ini
+      - ./app:/var/www/html
+      - ./log/php-fpm:/var/log/php-fpm
+    links:
+      - db:db
+
+  # Nginx
+  nginx:
+    restart: always
+    image: nginx:1-alpine
+    ports:
+      - "8888:80"
+    links:
+      - phpfpm:phpfpm
+    volumes:
+      - ./nginx/vhost.conf:/etc/nginx/conf.d/default.conf
+      - ./app:/var/www/html
+      - ./log/nginx:/var/log/nginx
+
+  # Postgres
+  db:
+    restart: always
+    image: postgres:9-alpine
+    ports:
+      - "5432:5432"
+    environment:    
+      POSTGRES_DB: database
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - .data/db:/var/lib/postgresql/data
