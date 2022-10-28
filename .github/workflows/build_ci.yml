@@ -36,5 +36,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker compose -f "docker-compose.yml" up
-          docker compose push phpfpm nginx db
+          docker push nginx
+          docker push phpfpm  
+          docker push db
           docker compose -f "docker-compose.yml" down
