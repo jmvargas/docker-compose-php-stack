@@ -35,7 +35,6 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker compose -f "docker-compose.yml" build phpfpm
-          docker compose -f "docker-compose.yml" build nginx
-          docker compose -f "docker-compose.yml" build db
-          docker push --all-tags ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          docker compose -f "docker-compose.yml" up
+          docker compose push phpfpm nginx db
+          docker compose -f "docker-compose.yml" down
