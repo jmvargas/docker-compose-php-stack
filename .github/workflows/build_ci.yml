@@ -28,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/phpfpm
           tags: |
             type=ref,event=branch
             type=sha
@@ -36,5 +36,5 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker compose -f docker-compose.yml build phpfpm
-          docker push phpfpm
+          docker push ${{ env.REGISTRY }}/phpfpm
           docker compose -f docker-compose.yml down
