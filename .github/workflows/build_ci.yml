@@ -38,4 +38,4 @@ jobs:
           docker compose -f "docker-compose.yml" build phpfpm
           docker compose -f "docker-compose.yml" build nginx
           docker compose -f "docker-compose.yml" build db
-          docker compose push phpfpm nginx db
+          docker push phpfpm nginx db
