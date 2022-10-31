@@ -45,5 +45,11 @@ jobs:
           down-flags: "--volumes"
           services: ${{ env.IMAGE_NAME }}
 
-      - name: push Docker image
-        run: docker compose push ${{ env.IMAGE_NAME }}
+      # - name: push Docker image
+      #   run: docker compose push ${{ env.IMAGE_NAME }}
+      - name: publish
+      uses: pennsignals/publish_docker-compose@v0.1.0
+      with:
+        version: '0.2.6-rc.1' # optional
+        docker_compose: 'docker-compose.build.yml' # required
+        repo_token: "${{ secrets.TOKEN }}"
