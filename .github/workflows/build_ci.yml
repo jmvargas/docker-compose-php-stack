@@ -5,7 +5,7 @@ on: push
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: phpfpm
-  REPO: dicker-compose-php-stack
+  REPO: docker-compose-php-stack
 
 jobs:
   build-and-push-image:
