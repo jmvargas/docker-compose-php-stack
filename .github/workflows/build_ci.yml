@@ -38,7 +38,6 @@ jobs:
       #     docker compose -f docker-compose.yml build ${{ env.IMAGE_NAME }}
       #     docker push ${{ env.IMAGE_NAME }}
       - name: Docker-compose action
-        uses: actions/checkout@v3
         uses: isbang/compose-action@v1.4.0
         with:
           compose-file: "./docker/docker-compose.yml"
