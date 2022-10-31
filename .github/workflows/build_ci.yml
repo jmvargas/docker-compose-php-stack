@@ -40,6 +40,6 @@ jobs:
       - name: Docker-compose action
         uses: isbang/compose-action@v1.4.0
         with:
-          compose-file: "./docker/docker-compose.yml"
+          compose-file: "./docker-compose.yml"
           down-flags: "--volumes"
           services: ${{ env.IMAGE_NAME }}
