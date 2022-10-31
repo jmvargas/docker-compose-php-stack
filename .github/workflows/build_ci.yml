@@ -24,14 +24,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.REGISTRY }}/phpfpm
-          tags: |
-            type=ref,event=branch
-            type=sha
+      # - name: Extract metadata (tags, labels) for Docker
+      #   id: meta
+      #   uses: docker/metadata-action@v4
+      #   with:
+      #     images: ${{ env.REGISTRY }}/phpfpm
+      #     tags: |
+      #       type=ref,event=branch
+      #       type=sha
 
       - name: Build and push Docker image
         run: |
