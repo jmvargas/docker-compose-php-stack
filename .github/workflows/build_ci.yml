@@ -46,4 +46,4 @@ jobs:
           services: ${{ env.IMAGE_NAME }}
 
       - name: push Docker image
-        run: docker compose push ${{ env.REPO }}-${{ env.IMAGE_NAME }}
+        run: docker compose push ${{ env.REPO }}_${{ env.IMAGE_NAME }}
