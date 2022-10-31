@@ -63,7 +63,7 @@ on: push
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ikermenka1/phpfpm
+  IMAGE_NAME: phpfpm
 
 jobs:
   build-and-push-image:
