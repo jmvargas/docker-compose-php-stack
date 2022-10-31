@@ -87,7 +87,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker compose -f docker-compose.yml build phpfpm
-          docker push 
+          docker push ${{ env.REGISTRY }}/ikermenka1/phpfpm
 
     
 
