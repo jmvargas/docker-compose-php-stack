@@ -36,5 +36,4 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker compose -f docker-compose.yml build phpfpm
-          docker push ${{ env.REGISTRY }}/phpfpm
-          docker compose -f docker-compose.yml down
+          docker push phpfpm
