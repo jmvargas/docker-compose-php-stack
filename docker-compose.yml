@@ -9,6 +9,7 @@ services:
       - ./php-fpm/php.ini:/usr/local/etc/php/php.ini
       - ./app:/var/www/html
       - ./log/php-fpm:/var/log/php-fpm
+    image: ghcr.io/ikermenka1/phpfpm
     links:
       - db:db
 

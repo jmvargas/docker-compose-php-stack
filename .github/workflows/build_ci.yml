@@ -63,6 +63,7 @@ on: push
 
 env:
   REGISTRY: ghcr.io
+  IMAGE: ikermenka1/phpfpm
 
 jobs:
   build-and-push-image:
@@ -86,8 +87,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker compose -f docker-compose.yml build phpfpm
-          docker push ${{ env.REGISTRY }}/${{ github.actor }}/phpfpm
+          docker compose -f docker-compose.yml build ${{ IMAGE }}
+          docker push ${{ env.REGISTRY }}/${{ github.actor }}/${{ IMAGE }}
 
     
 
