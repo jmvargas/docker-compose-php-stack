@@ -4,7 +4,7 @@ on: push
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: phpfpm
 
 jobs:
   build-and-push-image:
@@ -35,5 +35,5 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker compose -f docker-compose.yml build phpfpm
-          docker push phpfpm
+          docker compose -f docker-compose.yml build ${{ env.IMAGE_NAME }}
+          docker push ${{ env.IMAGE_NAME }}
