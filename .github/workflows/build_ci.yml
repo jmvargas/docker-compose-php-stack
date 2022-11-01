@@ -128,6 +128,10 @@ jobs:
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: ${{ matrix.image }}
+          tags: |
+            type=ref,event=branch
+            type=sha
+
 
       - name: Build and push Docker image Drill4Net.Agent.Service
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
