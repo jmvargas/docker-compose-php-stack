@@ -85,7 +85,6 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=branch
             type=sha
@@ -96,10 +95,7 @@ jobs:
           docker compose -f docker-compose.yml build phpfpm
           docker push ${{ env.REGISTRY }}/ikermenka1/phpfpm
         with:
-          context: .
-          push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
 
     
 
