@@ -81,21 +81,12 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          tags: |
-            type=ref,event=branch
-            type=sha
-
-
+  
       - name: Build and push Docker image
         run: |
           docker compose -f docker-compose.yml build phpfpm
-          docker push ${{ env.REGISTRY }}/ikermenka1/phpfpm
-        with:
-          tags: ${{ steps.meta.outputs.tags }}
+          docker tag docker-compose-php-stack_phpfpm:latest ${{ env.REGISTRY }}/ikermenka1/phpfpm:${{ github.run_number }}
+          docker push ${{ env.REGISTRY }}/ikermenka1/phpfpm:${{ github.run_number }}
 
     
 
