@@ -91,9 +91,7 @@
 #           docker push ${{ env.REGISTRY }}/ikermenka1/phpfpm:${{ github.run_number }}   
 
 name: Build & publish docker images
-on:
-  release:
-    types: [published]
+on: push
 
 env:
   REGISTRY: ghcr.io
