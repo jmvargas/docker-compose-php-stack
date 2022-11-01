@@ -85,7 +85,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker compose -f docker-compose.yml build phpfpm
-          docker tag docker-compose-php-stack_phpfpm:latest ${{ env.REGISTRY }}/ikermenka1/phpfpm:${{ github.run_number }}
+          docker tag docker.io/library/docker-compose-php-stack-phpfpm ${{ env.REGISTRY }}/ikermenka1/phpfpm:${{ github.run_number }}
           docker push ${{ env.REGISTRY }}/ikermenka1/phpfpm:${{ github.run_number }}
 
     
