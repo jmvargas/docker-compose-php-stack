@@ -95,6 +95,11 @@ jobs:
         run: |
           docker compose -f docker-compose.yml build phpfpm
           docker push ${{ env.REGISTRY }}/ikermenka1/phpfpm
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
     
 
