@@ -23,7 +23,7 @@
 #         uses: docker/login-action@v2
 #         with:
 #           registry: ${{ env.REGISTRY }}
-#           username: ${{ github.actor }}
+#           ikermenka1: ${{ github.actor }}
 #           password: ${{ secrets.TOKEN }}
 
 #       # - name: Extract metadata (tags, labels) for Docker
@@ -57,37 +57,87 @@
 #       #     docker_compose: 'docker-compose.build.yml' # required
 #       #     repo_token: "${{ secrets.TOKEN }}"
 
-name: Create and publish a Docker image
 
-on: push
+# #works
+# name: Create and publish a Docker image
+
+# on: push
+
+# env:
+#   REGISTRY: ghcr.io
+
+# jobs:
+#   build-and-push-image:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: read
+#       packages: write
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+
+#       - name: Log in to the Container registry
+#         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+#         with:
+#           registry: ${{ env.REGISTRY }}
+#           ikermenka1: ${{ github.actor }}
+#           password: ${{ secrets.GITHUB_TOKEN }}
+  
+#       - name: Build and push Docker image
+#         run: |
+#           docker compose -f docker-compose.yml build phpfpm
+#           docker tag docker.io/library/docker-compose-php-stack-phpfpm ${{ env.REGISTRY }}/ikermenka1/phpfpm:${{ github.run_number }}
+#           docker push ${{ env.REGISTRY }}/ikermenka1/phpfpm:${{ github.run_number }}   
+
+name: Build & publish docker images
+on:
+  release:
+    types: [published]
 
 env:
   REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: ./php-fpm/Dockerfile
+            image: ghcr.io/ikermenka1/phpfpm
+          # - dockerfile: ./src/Dockerfile-dril4net-distribution
+          #   image: ghcr.io/ikermenka1/phpfpm
     permissions:
       contents: read
       packages: write
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-  
-      - name: Build and push Docker image
-        run: |
-          docker compose -f docker-compose.yml build phpfpm
-          docker tag docker.io/library/docker-compose-php-stack-phpfpm ${{ env.REGISTRY }}/ikermenka1/phpfpm:${{ github.run_number }}
-          docker push ${{ env.REGISTRY }}/ikermenka1/phpfpm:${{ github.run_number }}
+          ikermenka1: ${{ github.actor }}
+          password: ${{ secrets.TOKEN }}
 
-    
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ matrix.image }}
+
+      - name: Build and push Docker image Drill4Net.Agent.Service
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
    
