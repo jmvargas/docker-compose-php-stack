@@ -146,7 +146,7 @@ jobs:
         uses: anchore/scan-action@v3
         with:
           image: ${{ steps.meta.outputs.tags }}
-          fail-build: true
+          fail-build: false
           severity-cutoff: critical
 
       - name: Push images
@@ -157,5 +157,12 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Delete images
+        uses: smartsquaregmbh/delete-old-packages@v0.5.0
+        with: 
+          keep: 20
+          names: |
+            phpfpm
 
    
