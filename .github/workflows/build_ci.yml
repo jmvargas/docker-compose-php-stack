@@ -146,7 +146,7 @@ jobs:
       - name: Scan image
         uses: anchore/scan-action@v3
         with:
-          image: ${{ steps.meta.outputs.labels }}:${{ steps.meta.outputs.tags }}
+          image: ${{ matrix.image }}:${{ steps.meta.outputs.tags }}
           fail-build: true
           severity-cutoff: critical
 
