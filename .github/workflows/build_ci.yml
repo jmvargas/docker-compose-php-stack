@@ -146,7 +146,7 @@ jobs:
       - name: Scan image
         uses: anchore/scan-action@v3
         with:
-          image: ${{ matrix.image }}:${{ github.sha }}
+          image: localbuild/phpfpm:latest
           fail-build: true
           severity-cutoff: critical
 
