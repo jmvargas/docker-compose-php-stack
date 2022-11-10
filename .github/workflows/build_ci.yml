@@ -163,6 +163,6 @@ jobs:
         with: 
           keep: 3
           names: |
-            phpfpm
+            ${{ matrix.image }}
 
    
