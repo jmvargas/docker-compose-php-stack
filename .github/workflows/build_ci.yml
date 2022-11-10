@@ -129,7 +129,6 @@ jobs:
         with:
           images: ${{ matrix.image }}
           tags: |
-            type=ref,event=branch
             type=sha
 
 
