@@ -161,8 +161,11 @@ jobs:
       - name: Delete images
         uses: smartsquaregmbh/delete-old-packages@v0.5.0
         with: 
+          token: ${{ secrets.TOKEN }}
+          registry: ${{ env.REGISTRY }}
+          type: container
           keep: 3
           names: |
-            ${{ matrix.image }}
+            phpfpm
 
    
