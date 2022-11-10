@@ -146,8 +146,7 @@ jobs:
       - name: Scan image
         uses: anchore/scan-action@v3
         with:
-          image: ${{ matrix.image }}
-          tags: ${{ steps.meta.outputs.tags }}
+          image: ${{ matrix.image }}:${{ steps.meta.outputs.tags }}
 
       - name: Push images
         uses: docker/build-push-action@v3
