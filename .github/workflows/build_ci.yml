@@ -133,8 +133,24 @@ jobs:
             type=sha
 
 
-      - name: Build and push Docker image Drill4Net.Agent.Service
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      - name: Build Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          push: false
+          load: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      
+      - name: Scan image
+        uses: anchore/scan-action@v3
+        with:
+          image: ${{ matrix.image }}
+          tags: ${{ steps.meta.outputs.tags }}
+
+      - name: Push images
+        uses: docker/build-push-action@v3
         with:
           context: .
           file: ${{ matrix.dockerfile }}
