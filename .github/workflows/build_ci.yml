@@ -146,7 +146,7 @@ jobs:
         uses: anchore/scan-action@v3
         with:
           image: ${{ steps.meta.outputs.tags }}
-          fail-build: true
+          fail-build: false
           severity-cutoff: critical
           # output-format: table
 
