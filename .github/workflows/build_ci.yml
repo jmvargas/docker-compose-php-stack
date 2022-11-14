@@ -148,7 +148,7 @@ jobs:
           image: ${{ steps.meta.outputs.tags }}
           fail-build: true
           severity-cutoff: critical
-
+          output-format: table
       - name: Push images
         uses: docker/build-push-action@v3
         with:
