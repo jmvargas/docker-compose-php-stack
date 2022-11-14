@@ -148,7 +148,15 @@ jobs:
           image: ${{ steps.meta.outputs.tags }}
           fail-build: true
           severity-cutoff: critical
-          output-format: table
+          # output-format: table
+          
+       - name: upload Anchore scan SARIF report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif }}
+      - name: Inspect action SARIF report
+        run: cat ${{ steps.scan.outputs.sarif }}
+
       - name: Push images
         uses: docker/build-push-action@v3
         with:
