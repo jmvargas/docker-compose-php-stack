@@ -1,5 +1,7 @@
-name: Build & publish docker images
-on: push
+name: Delete docker images
+on: 
+  schedule:
+  - cron: "*/5 * * * *"
 
 # env:
 #   REGISTRY: ghcr.io
@@ -27,6 +29,6 @@ jobs:
           token: ${{ secrets.TOKEN }}
           user: ikermenka1
           type: container
-          keep: 2
+          keep: 1
           names: |
             phpfpm
