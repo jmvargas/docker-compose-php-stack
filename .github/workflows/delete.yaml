@@ -27,6 +27,6 @@ jobs:
           token: ${{ secrets.TOKEN }}
           user: ikermenka1
           type: container
-          keep: 3
+          keep: 2
           names: |
             phpfpm
