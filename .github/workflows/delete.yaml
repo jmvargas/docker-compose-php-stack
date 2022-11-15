@@ -1,0 +1,32 @@
+name: Build & publish docker images
+on: push
+
+# env:
+#   REGISTRY: ghcr.io
+#   IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+ delete-image:
+    runs-on: ubuntu-latest
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     include:
+    #       - dockerfile: ./php-fpm/Dockerfile
+    #         image: ghcr.io/ikermenka1/phpfpm
+    #       # - dockerfile: ./src/Dockerfile-dril4net-distribution
+    #       #   image: ghcr.io/ikermenka1/phpfpm
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Delete images
+        uses: smartsquaregmbh/delete-old-packages@v0.5.0
+        with: 
+          token: ${{ secrets.TOKEN }}
+          user: ikermenka1
+          type: container
+          keep: 3
+          names: |
+            phpfpm
